@@ -113,4 +113,35 @@ The IPFS/Filecoin integration has solid architectural foundations but needs actu
 
 The modular design allows easy switching between different storage providers, and the emotional trait integration is innovative for NFT storage. Once we get IPFS node access, this could provide reliable decentralized storage for emotional NFT metadata.
 
-**Reality Check**: 60% complete, 0% connected to real networks, but architecture is sound for production deployment.
+**Reality Check**: 60% complete, 0% connected to real networks, but architecture is sound for production deployment.### Architecture Diagram
+
+```mermaid
+graph LR
+    APP[App] --> COMP[Compression Engine]
+    COMP --> IPFS[IPFS]
+    IPFS --> LOTUS[Lotus Client]
+    LOTUS --> MINERS[Filecoin Miners]
+```
+
+### Component Flow
+
+```mermaid
+graph TB
+    subgraph Application
+        UI[React UI]
+        API[Storage API]
+    end
+    subgraph Compression
+        DELTA[Delta Encoding]
+        RLE[RLE]
+    end
+    subgraph Storage
+        IPFS_LOCAL[Local IPFS]
+        WEB3[Web3.Storage]
+    end
+    UI --> API
+    API --> DELTA
+    API --> RLE
+    DELTA --> IPFS_LOCAL
+    RLE --> IPFS_LOCAL
+```
